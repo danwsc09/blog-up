@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<title>Sign up!</title>
+</head>
+
+<body>
+
+<form th:action="@{/register}" method="POST" th:object="${user}">
+	<input type="text" 
+		placeholder="Enter desired username"
+		th:field="*{username}" />
+	<input type="password" 
+		placeholder="Enter desired password"
+		th:field="*{password}" />
+	<input type="text" 
+		placeholder="Enter email"
+		th:field="*{email}" />
+	<input type="submit" value="sign up" />
+</form>
+
+</body>
+</html>

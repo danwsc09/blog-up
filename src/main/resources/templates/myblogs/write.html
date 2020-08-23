@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<title>Write blog</title>
+</head>
+
+
+<body>
+<h1>Write blog here</h1>
+<a th:href="@{/myblogs}"
+	class="btn btn-primary">My Blogs</a>
+<a th:href="@{/}"
+	class="btn btn-primary">Home</a>
+
+<form th:action="@{/myblogs/submit}" method="post" th:object="${blog}">
+	
+	<div class="form-group">
+		<label for="formControlTitle">Title</label>
+		<input type="text" th:field="*{title}" 
+			id="formControlTitle" class="form-control"
+			placeholder="Enter title here" required/>
+	</div>
+	
+	<div class="form-group">
+		<label for="formControlTextArea">Content</label>
+		<input type="textarea" th:field="*{content}" 
+		id="formControlTextArea"
+		class="form-control"
+		placeholder="Content goes here" required/>
+	
+	</div>
+	
+
+	<input type="submit" value="Submit" 
+		class="btn btn-primary"/>
+	
+	
+	
+</form>
+
+</body>
+
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<title>Log In</title>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Not logged in -->
+<div sec:authorize="!isAuthenticated()">
+	<a th:href="@{'/showLoginPage'}">Log in now</a> <br>
+	<a th:href="@{/signup}">Sign up</a>
+</div>
+
+<!-- Logged in: Show Logout Button -->
+<div sec:authorize="isAuthenticated()">
+	<form th:action="@{/logout}" method="POST">
+		<input type="submit" value="Log out" />
+	</form>
+</div>
+
+
+<!-- Logged in as user -->
+<div sec:authorize="hasRole('ROLE_USER')">
+	<a th:href="@{/myblogs}">View my blogs</a>
+</div>
+
+<!-- logged in as admin -->
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+	<a th:href="@{/admin}">Admin page</a>
+</div>
+
+
+<h1>List of blogs here</h1> 
+
+<div class="table-responsive">
+	
+	<form th:action="@{/search}" method="POST" >
+		<label for="searchBar">Search: </label>
+		<input type="text" name="searchWord" 
+			id="searchBar"/>
+		<input type="submit" value="Search" class="btn btn-primary"/>
+	</form>
+	
+	<table class="table table-striped table-bordered table-hover">
+		<thead class="thead-dark">
+		<tr>
+			<th>Author</th>
+			<th>Title</th>
+			<th>Likes</th>
+		</tr>
+		</thead>
+		
+		<tbody >
+		<tr th:each="blog : ${blogs}">
+			<td th:text="${blog.author.username}" />
+			<td><a th:href="@{'/myblogs/view/' + ${blog.id}}" th:text="${blog.title}" /> </td>
+			<td th:text="${blog.likes}" />
+			
+		</tr>
+		</tbody>
+	
+	</table>
+	
+	</div>
+
+
+
+</div>
+</body>
+
+</html>
