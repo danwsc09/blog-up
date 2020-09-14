@@ -1,7 +1,4 @@
 # blog-up
-todo:
-- Show 10 or 20 per page
-- Make view blogs for everyone (under "/view")
-- Make editing only possible for the author 
--- Make deleting blogs possible for admin
-- Add "likes" feature
+- A simple blogging app
+- Logged in users can sign up to write a blog or comment on blogs
+- Non-logged in users can view the contents of the blog 
