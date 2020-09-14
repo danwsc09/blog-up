@@ -54,15 +54,15 @@
 		<tr>
 			<th>Author</th>
 			<th>Title</th>
-			<th>Likes</th>
+			<th>Date</th>
 		</tr>
 		</thead>
 		
 		<tbody >
 		<tr th:each="blog : ${blogs}">
 			<td th:text="${blog.author.username}" />
-			<td><a th:href="@{'/myblogs/view/' + ${blog.id}}" th:text="${blog.title}" /> </td>
-			<td th:text="${blog.likes}" />
+			<td><a th:href="@{'/view/' + ${blog.id}}" th:text="${blog.title}" /> </td>
+			<td th:text="${blog.writeDate}" />
 			
 		</tr>
 		</tbody>

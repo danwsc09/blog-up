@@ -11,6 +11,7 @@
 
 
 <body>
+<div class="container">
 <h1>Write blog here</h1>
 <a th:href="@{/myblogs}"
 	class="btn btn-primary">My Blogs</a>
@@ -18,6 +19,9 @@
 	class="btn btn-primary">Home</a>
 
 <form th:action="@{/myblogs/submit}" method="post" th:object="${blog}">
+	
+	<input type="text" th:field="*{id}" hidden/>
+	<input type="text" th:field="*{writeDate}" hidden/> 
 	
 	<div class="form-group">
 		<label for="formControlTitle">Title</label>
@@ -28,11 +32,16 @@
 	
 	<div class="form-group">
 		<label for="formControlTextArea">Content</label>
-		<input type="textarea" th:field="*{content}" 
+		<textarea class="form-control" 
+			id="formControlTextArea" 
+			rows="3"
+			th:field="*{content}"/>
+
+<!-- 	<input type="text" th:field="*{content}" 
 		id="formControlTextArea"
 		class="form-control"
 		placeholder="Content goes here" required/>
-	
+-->	
 	</div>
 	
 
@@ -42,7 +51,7 @@
 	
 	
 </form>
-
+</div>
 </body>
 
 

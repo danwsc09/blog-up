@@ -33,7 +33,6 @@ public class MyBlogsController {
 		blogService = theBlogService;
 	}
 	
-	
 	// Shows list of blogs
 	@GetMapping()
 	public String showMyBlogs(Model theModel) {
@@ -61,6 +60,7 @@ public class MyBlogsController {
 	public String writeBlog(Model theModel) {
 		
 		Blog theBlog = new Blog();
+		theBlog.setId(0);
 		theModel.addAttribute("blog", theBlog);
 		
 		return "myblogs/write";
@@ -69,14 +69,23 @@ public class MyBlogsController {
 	@PostMapping("/submit")
 	public String submitBlog(@ModelAttribute("blog") Blog theBlog) {
 
-		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = 
-		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String currentTime = sdf.format(dt);
+		System.out.println("========");
+		System.out.println("In submit endpoint");
+		System.out.println("content: " + theBlog.getContent());
+		System.out.println("date: " + theBlog.getWriteDate());
+		System.out.println("========");
 		
-				
-		theBlog.setWriteDate(currentTime);
-		theBlog.setLikes(0);
+		if (theBlog.getId() == 0) {
+			java.util.Date dt = new java.util.Date();
+			java.text.SimpleDateFormat sdf = 
+					new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(dt);
+			
+			
+			theBlog.setWriteDate(currentTime);
+			theBlog.setLikes(0);	
+		}
+		
 		
 		// Get user from username
 		String username = null;
@@ -86,7 +95,7 @@ public class MyBlogsController {
 		} else {
 			username = principal.toString();
 		}
-		
+
 		User theUser = userService.findByUsername(username);
 		
 		// add blog to user, then redirect
@@ -121,7 +130,34 @@ public class MyBlogsController {
 	public String updateBlog(@RequestParam(name="blogId") int theId,
 			Model theModel) {
 		
+		// find by blog id and username
+		// if blog is found but not under the same user, then deny access
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		
 		Blog theBlog = blogService.findById(theId);
+		if (theBlog == null) {
+			// throw BlogNotFoundException
+			// for now, transfer to error page
+			return "access-denied";
+		}
+		if (!theBlog.getAuthor().getUsername().equals(username)) {
+			// throw exception. 
+			// for now - transfer to error page
+			return "access-denied";
+		
+		}
+		
+		System.out.println("In /edit mapping");
+		System.out.println("blog id: " + theBlog.getId());
+		System.out.println("blog content: " + theBlog.getContent());
+		System.out.println("blog date: " + theBlog.getWriteDate());
+		
 		theModel.addAttribute("blog", theBlog);
 		
 		return "myblogs/write";

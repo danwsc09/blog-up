@@ -13,21 +13,27 @@
 
 <body>
 <div class="container">
+	<a th:href="@{/}" class="btn btn-primary btn-sm">Return Home</a>
 	<h3 th:text="${blog.title}"></h3>
 	<p th:text="'Written by ' + ${blog.author.username} + ' on ' + ${blog.writeDate}" />
-	
 	<p th:utext="${#strings.replace( #strings.escapeXml( blog.content ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
 
-	
-	<a th:href="@{/myblogs/edit(blogId=${blog.id})}"
-		class="btn btn-primary btn-sm">Edit</a>
-	
-	<a th:href="@{/myblogs/}"
-		class="btn btn-primary btn-sm">Return to my blogs</a>
-	
-	<a th:href="@{/}"
-		class="btn btn-primary btn-sm">Return home</a>
-	
+<!-- Comments -->
+<h4>Comments</h4>
+<div th:each="comment : ${comments}">
+	<p th:text="${comment.commenter.username} + ' commented on ' + ${comment.writeDate}" />
+	<p th:text="${comment.content}" />
+</div>
+
+<!-- Writing Comment -->
+<div sec:authorize="isAuthenticated()">
+	<form th:action="@{'/submitComment/' + ${blog.id}}" method="post" 
+		th:object="${currentComment}">
+		
+		<textarea th:field="*{content}" />	
+		<input type="submit" value="Add Comment"/>
+	</form>
+</div>
 
 </div>
 </body>

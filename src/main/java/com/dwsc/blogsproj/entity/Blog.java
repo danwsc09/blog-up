@@ -1,5 +1,8 @@
 package com.dwsc.blogsproj.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,6 +41,11 @@ public class Blog {
 				CascadeType.PERSIST}, fetch = FetchType.LAZY)
 	private User author;
 	
+	@OneToMany(mappedBy = "blog", 
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY)
+	private List<Comment> comments;
+	
 	public Blog() {}
 
 	public Blog(String title, String content) {
@@ -44,6 +53,15 @@ public class Blog {
 		this.content = content;
 	}
 
+	// convenience method for adding comments
+	public void addComment(Comment theComment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
+		}
+		comments.add(theComment);
+		theComment.setBlog(this);
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -92,11 +110,18 @@ public class Blog {
 		this.author = author;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
 		return "Blog [id=" + id + ", title=" + title + ", content=" + content + ", likes=" + likes + ", writeDate="
 				+ writeDate + ", author=" + author.getUsername() + "]";
 	}
-	
 	
 }

@@ -79,4 +79,10 @@ INSERT INTO `blogs` (`title`, `author_id`, `content`, `likes`)
 VALUES
 	('How to win games', 2, 'Destroy nexus and say you carried', 0);
 
+INSERT INTO `comments` (`comment`, `commenter_id`, `blog_id`)
+VALUES
+	('That is a nice way to play the game.', 3, 2);
 
+INSERT INTO `comments` (`comment`, `commenter_id`, `blog_id`)
+VALUES
+	('Another comment!', 4, 2);

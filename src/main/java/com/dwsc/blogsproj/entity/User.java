@@ -45,6 +45,11 @@ public class User {
 				fetch = FetchType.LAZY)
 	private List<Blog> blogs;
 	
+	@OneToMany(mappedBy = "commenter", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+				CascadeType.PERSIST, CascadeType.REFRESH},
+				fetch = FetchType.LAZY)
+	private List<Comment> comments;
+	
 	public User() {}
 
 	public User(String username, String password, String email) {
@@ -128,6 +133,14 @@ public class User {
 		this.blogs = blogs;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
@@ -143,4 +156,12 @@ public class User {
 		theBlog.setAuthor(this);
 	}
 	
+	// convenience method for adding comment to user
+	public void addComment(Comment theComment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
+		}
+		comments.add(theComment);
+		theComment.setCommenter(this);
+	}
 }
