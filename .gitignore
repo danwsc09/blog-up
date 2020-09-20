@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### SQL scripts and app.props ###
+/src/main/resources/sql/
+/src/main/resources/application.properties
+
 ### STS ###
 .apt_generated
 .classpath
