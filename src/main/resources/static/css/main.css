@@ -1,0 +1,40 @@
+body {
+	background-color: #CCFFD4	;
+	background-image: linear-gradient(to right, rgba(204,255,238,0), rgba(51,85,255,1));
+}
+
+.search {
+	padding: 15px;
+}
+
+h3 {
+	padding: 1rem;
+	font-size: 2.0rem;
+}
+
+.content-wrapper {
+	background-color: #B3FFD9;
+	background-image: linear-gradient(to right, rgba(251,255,230,0), rgba(51,85,255,1));
+}
+
+
+.author {
+	font-size: 0.8rem;
+	color: #474747;
+	padding-left: 1rem;
+}
+
+.content {
+	padding: 1rem;
+	font-size: 1.2rem;
+}
+
+.comment {
+	padding-left: 1rem;
+	padding-top: 0.5rem;
+}
+
+.write-comment {
+	padding: 1.5rem;
+}
+

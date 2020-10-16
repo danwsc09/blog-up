@@ -6,50 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-	<title>Log In</title>
+	
+	<link rel="stylesheet" href="../css/main.css" />
+	
+	<title>BlogUp</title>
 </head>
 <body>
 
 <div class="container">
 
-<!-- Not logged in -->
-<div sec:authorize="!isAuthenticated()">
-	<a th:href="@{'/showLoginPage'}">Log in now</a> <br>
-	<a th:href="@{/signup}">Sign up</a>
-</div>
+<!-- Nav bar Container -->
+<div class="navbar-expand-sm">
+	
+	
+	<!-- Nav bar -->
+	<div class="navbar navbar-light" style="background-color: #e3f2fd;">
+	
+		<a class="navbar-brand" href="/">
+			BlogUp
+		</a>
+		
+		<div class="collapse navbar-collapse" id="navbarText">
+		
+			<ul class="navbar-nav mr-auto ">
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs}"
+		        style="border: none;">
+		        	My Blogs<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+		      
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs/write}"
+		        style="border: none;">
+		        	Write a Blog<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+			</ul>			
+		</div>
+		
+		<!-- Far right -->
+		<div class="navbar-collapse order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+	            <li class="nav-item active">
+					<a sec:authorize="!isAuthenticated()" 
+						th:href="@{'/showLoginPage'}"
+						class="nav-link btn btn-outline-success btn-sm">Log in</a>
+					<a sec:authorize="isAuthenticated()"
+						class="nav-link">
+						Logged in as: <span sec:authentication="name"></span>
+					</a>
+		      	</li>
+		      	<li class="nav-item">
+	                
+					<form sec:authorize="isAuthenticated()"
+						class="nav-link" 
+						th:action="@{/logout}" method="POST">
+						<input type="submit" value="Log out" 
+							class="btn btn-outline-success btn-sm" />
+					</form>
+	            </li>
+	        </ul>
+		</div>
+	
+	</div>
+</div> <!-- Nav bar container -->
 
-<!-- Logged in: Show Logout Button -->
-<div sec:authorize="isAuthenticated()">
-	<form th:action="@{/logout}" method="POST">
-		<input type="submit" value="Log out" />
+
+<div class="row justify-content-md-center search">	
+	<form th:action="@{/search}" method="POST" >
+		<label for="searchBar">Search by title: </label>
+		<input type="text" name="searchWord" 
+			id="searchBar"/>
+		<input type="submit" value="Search" class="btn btn-danger btn-sm"/>
 	</form>
 </div>
-
-
-<!-- Logged in as user -->
-<div sec:authorize="hasRole('ROLE_USER')">
-	<a th:href="@{/myblogs}">View my blogs</a>
-</div>
-
-<!-- logged in as admin -->
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-	<a th:href="@{/admin}">Admin page</a>
-</div>
-
-
-<h1>List of blogs here</h1> 
 
 <div class="table-responsive">
 	
-	<form th:action="@{/search}" method="POST" >
-		<label for="searchBar">Search: </label>
-		<input type="text" name="searchWord" 
-			id="searchBar"/>
-		<input type="submit" value="Search" class="btn btn-primary"/>
-	</form>
 	
-	<table class="table table-striped table-bordered table-hover">
+	
+	<table class="table table-light table-striped table-bordered table-hover">
 		<thead class="thead-dark">
 		<tr>
 			<th>Author</th>
@@ -74,6 +111,7 @@
 
 
 </div>
+
 </body>
 
 </html>

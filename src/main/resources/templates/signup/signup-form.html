@@ -6,23 +6,40 @@
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+	<link rel="stylesheet" href="../css/login.css" />
+
 	<title>Sign up!</title>
 </head>
 
 <body>
 
-<form th:action="@{/register}" method="POST" th:object="${user}">
-	<input type="text" 
-		placeholder="Enter desired username"
-		th:field="*{username}" />
-	<input type="password" 
-		placeholder="Enter desired password"
-		th:field="*{password}" />
-	<input type="text" 
-		placeholder="Enter email"
-		th:field="*{email}" />
-	<input type="submit" value="sign up" />
-</form>
+<div class="login-page">
+  <div class="form">
+	<form class="register-form"
+		th:action="@{/register}" method="POST" th:object="${user}">
+		<input type="text" 
+			placeholder="Enter desired username"
+			th:field="*{username}" 
+			required autocomplete="off"
+			autofocus="autofocus"/>
+		
+		<input type="email" 
+			placeholder="Enter email"
+			th:field="*{email}"
+			required autocomplete="off" />
+		
+		<input type="password" 
+			placeholder="Enter desired password"
+			th:field="*{password}" 
+			required autocomplete="off" />
+		
+      <button>create</button>
+      <p class="message">Already registered? <a th:href="@{/showLoginPage}">Sign In</a></p>
+    </form>
+    
+  </div>
+</div>
+
 
 </body>
 </html>

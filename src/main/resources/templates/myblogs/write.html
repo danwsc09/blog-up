@@ -5,18 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-	<title>Write blog</title>
+	<link rel="stylesheet" href="../css/main.css" />
+	<title>Write your blog</title>
 </head>
 
 
 <body>
 <div class="container">
-<h1>Write blog here</h1>
-<a th:href="@{/myblogs}"
-	class="btn btn-primary">My Blogs</a>
-<a th:href="@{/}"
-	class="btn btn-primary">Home</a>
+
+<!-- Nav bar Container -->
+<div class="navbar-expand-sm">
+	
+	
+	<!-- Nav bar -->
+	<div class="navbar navbar-light" style="background-color: #e3f2fd;">
+	
+		<a class="navbar-brand" href="/">
+			BlogUp
+		</a>
+		
+		<div class="collapse navbar-collapse" id="navbarText">
+		
+			<ul class="navbar-nav mr-auto ">
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs}"
+		        style="border: none;">
+		        	My Blogs<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+		      
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs/write}"
+		        style="border: none;">
+		        	Write a Blog<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+			</ul>			
+		</div>
+		
+		<!-- Far right -->
+		<div class="navbar-collapse order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+	            <li class="nav-item active">
+					<a sec:authorize="!isAuthenticated()" 
+						th:href="@{'/showLoginPage'}"
+						class="nav-link btn btn-outline-success btn-sm">Log in</a>
+					<a sec:authorize="isAuthenticated()"
+						class="nav-link">
+						Logged in as: <span sec:authentication="name"></span>
+					</a>
+		      	</li>
+		      	<li class="nav-item">
+	                
+					<form sec:authorize="isAuthenticated()"
+						class="nav-link" 
+						th:action="@{/logout}" method="POST">
+						<input type="submit" value="Log out" 
+							class="btn btn-outline-success btn-sm" />
+					</form>
+	            </li>
+	        </ul>
+		</div>
+	
+	</div>
+</div> <!-- Nav bar container -->
+
+
+
+
+
+
+<h3>What's on your mind?</h3>
 
 <form th:action="@{/myblogs/submit}" method="post" th:object="${blog}">
 	
@@ -27,7 +86,7 @@
 		<label for="formControlTitle">Title</label>
 		<input type="text" th:field="*{title}" 
 			id="formControlTitle" class="form-control"
-			placeholder="Enter title here" required/>
+			placeholder="Title" required/>
 	</div>
 	
 	<div class="form-group">
@@ -46,7 +105,7 @@
 	
 
 	<input type="submit" value="Submit" 
-		class="btn btn-primary"/>
+		class="btn btn-outline-primary"/>
 	
 	
 	

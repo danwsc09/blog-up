@@ -6,29 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="/css/main.css" />
 	<title th:text="${blog.title}"></title>
 </head>
 
 
 <body>
 <div class="container">
-	<h3 th:text="${blog.title}"></h3>
-	<p th:text="'Written by ' + ${blog.author.username} + ' on ' + ${blog.writeDate}" />
-	
-	<p th:utext="${#strings.replace( #strings.escapeXml( blog.content ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
 
+<!-- Nav bar Container -->
+<div class="navbar-expand-sm">
 	
+	
+	<!-- Nav bar -->
+	<div class="navbar navbar-light" style="background-color: #e3f2fd;">
+	
+		<a class="navbar-brand" href="/">
+			BlogUp
+		</a>
+		
+		<div class="collapse navbar-collapse" id="navbarText">
+		
+			<ul class="navbar-nav mr-auto ">
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs}"
+		        style="border: none;">
+		        	My Blogs<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+		      
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs/write}"
+		        style="border: none;">
+		        	Write a Blog<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+			</ul>			
+		</div>
+		
+		<!-- Far right -->
+		<div class="navbar-collapse order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+	            <li class="nav-item active">
+					<a sec:authorize="!isAuthenticated()" 
+						th:href="@{'/showLoginPage'}"
+						class="nav-link btn btn-outline-success btn-sm">Log in</a>
+					<a sec:authorize="isAuthenticated()"
+						class="nav-link">
+						Logged in as: <span sec:authentication="name"></span>
+					</a>
+		      	</li>
+		      	<li class="nav-item">
+	                
+					<form sec:authorize="isAuthenticated()"
+						class="nav-link" 
+						th:action="@{/logout}" method="POST">
+						<input type="submit" value="Log out" 
+							class="btn btn-outline-success btn-sm" />
+					</form>
+	            </li>
+	        </ul>
+		</div>
+	
+	</div>
+</div> <!-- Nav bar container -->
+
+<div class="content-wrapper">
+<!-- Content -->
+
+
+	<h3 class="text-center" th:text="${blog.title}"></h3>
+	<div class="author">
+		Written by <strong th:text="${blog.author.username}"></strong> on <em th:text="${blog.writeDate}"></em>
+	</div>
+	<div class="content">
+		<p th:utext="${#strings.replace( #strings.escapeXml( blog.content ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
+	</div>
+</div>
+
 	<a th:href="@{/myblogs/edit(blogId=${blog.id})}"
-		class="btn btn-primary btn-sm">Edit</a>
+		class="btn btn-warning">Edit blog</a>
 	
-	<a th:href="@{/myblogs/}"
-		class="btn btn-primary btn-sm">Return to my blogs</a>
-	
-	<a th:href="@{/}"
-		class="btn btn-primary btn-sm">Return home</a>
-	
-
 </div>
 </body>
 </html>
