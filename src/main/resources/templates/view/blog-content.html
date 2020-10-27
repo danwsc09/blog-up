@@ -14,7 +14,6 @@
 
 
 <body>
-<div class="container">
 
 <!-- Nav bar Container -->
 <div class="navbar-expand-sm">	
@@ -71,18 +70,20 @@
 	</div>
 </div> <!-- Nav bar container -->
 
+<div class="container">
 
 <div class="content-wrapper">
 <!-- Content -->
 
-
+	<article class="post">
 	<h3 class="text-center" th:text="${blog.title}"></h3>
-	<div class="author">
+	<small class="author">
 		Written by <strong th:text="${blog.author.username}"></strong> on <em th:text="${blog.writeDate}"></em>
-	</div>
+	</small>
 	<div class="content">
 		<p th:utext="${#strings.replace( #strings.escapeXml( blog.content ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
 	</div>
+	</article>
 <hr />
 
 <!-- Comments -->

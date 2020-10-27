@@ -12,6 +12,14 @@ h3 {
 	font-size: 2.0rem;
 }
 
+th {
+	text-align: center;
+}
+
+td {
+	text-align: center;
+}
+
 .content-wrapper {
 	background-color: #B3FFD9;
 	background-image: linear-gradient(to right, rgba(251,255,230,0), rgba(51,85,255,1));
