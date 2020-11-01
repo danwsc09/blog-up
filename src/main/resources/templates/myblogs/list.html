@@ -13,63 +13,8 @@
 
 <body>
 
+<header th:insert="./layout.html :: header"></header>
 
-<!-- Nav bar Container -->
-<div class="navbar-expand-sm">
-	
-	
-	<!-- Nav bar -->
-	<div class="navbar navbar-light" style="background-color: #e3f2fd;">
-	
-		<a class="navbar-brand" href="/">
-			BlogUp
-		</a>
-		
-		<div class="collapse navbar-collapse" id="navbarText">
-		
-			<ul class="navbar-nav mr-auto ">
-		      <li class="nav-item active">
-		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs}"
-		        style="border: none;">
-		        	My Blogs<span class="sr-only">(current)</span>
-		        </a>
-		      </li>
-		      
-		      <li class="nav-item active">
-		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs/write}"
-		        style="border: none;">
-		        	Write a Blog<span class="sr-only">(current)</span>
-		        </a>
-		      </li>
-			</ul>			
-		</div>
-		
-		<!-- Far right -->
-		<div class="navbar-collapse order-3 dual-collapse2">
-			<ul class="navbar-nav ml-auto">
-	            <li class="nav-item active">
-					<a sec:authorize="!isAuthenticated()" 
-						th:href="@{'/showLoginPage'}"
-						class="nav-link btn btn-outline-success btn-sm">Log in</a>
-					<a sec:authorize="isAuthenticated()"
-						class="nav-link">
-						Logged in as: <span sec:authentication="name"></span>
-					</a>
-		      	</li>
-		      	<li class="nav-item">
-	                
-					<form sec:authorize="isAuthenticated()"
-						class="nav-link" 
-						th:action="@{/logout}" method="POST">
-						<input type="submit" value="Log out" 
-							class="btn btn-outline-success btn-sm" />
-					</form>
-	            </li>
-	        </ul>
-		</div>
-	
-	</div>
-</div> <!-- Nav bar container -->
 <div class="container">
 	<h3>My Blogs</h3>
 	

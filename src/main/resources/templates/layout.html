@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+<meta charset="UTF-8" />
+<link th:href="@{./css/main.css}" rel="stylesheet">
+<meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+<body>
+<div th:fragment="header">
+    
+	
+<!-- Nav bar Container -->
+<nav class="navbar-expand-sm">	
+	<!-- Nav bar -->
+	<div class="navbar navbar-light">
+	<div class="container">
+	
+		<a class="navbar-brand" href="/">
+			BlogUp
+		</a>
+		
+		<div class="collapse navbar-collapse" id="navbarText">
+		
+			<ul class="navbar-nav mr-auto ">
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs}"
+		        style="border: none;">
+		        	Dashboard<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+		      
+		      <li class="nav-item active">
+		        <a class="nav-link btn btn-outline-primary" th:href="@{/myblogs/write}"
+		        style="border: none;">
+		        	Write Blog<span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+			</ul>			
+		</div>
+		
+		<!-- Far right -->
+		<div class="navbar-collapse order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+	            <li class="nav-item active">
+					<a sec:authorize="!isAuthenticated()" 
+						th:href="@{'/showLoginPage'}"
+						class="nav-link btn btn-outline-success btn-sm">Log in</a>
+					<a sec:authorize="isAuthenticated()"
+						class="nav-link">
+						Logged in as: <span sec:authentication="name"></span>
+					</a>
+		      	</li>
+		      	<li class="nav-item">
+	                <form sec:authorize="isAuthenticated()"
+						class="nav-link" 
+						th:action="@{/logout}" method="POST">
+						<input type="submit" value="Log out" 
+							class="btn btn-outline-success btn-sm" />
+					</form>
+	            </li>
+	        </ul>
+		</div>
+	
+	</div>
+	</div>
+</nav> <!-- Nav bar container -->
+
+</div>
+    
+</body>
+</html>

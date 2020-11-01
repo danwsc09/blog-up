@@ -1,6 +1,5 @@
 body {
-	background-color: #CCFFD4	;
-	background-image: linear-gradient(to right, rgba(204,255,238,0), rgba(51,85,255,1));
+	background-color: #f4f4f4;
 }
 
 .search {
@@ -20,9 +19,12 @@ td {
 	text-align: center;
 }
 
-.content-wrapper {
-	background-color: #B3FFD9;
-	background-image: linear-gradient(to right, rgba(251,255,230,0), rgba(51,85,255,1));
+.navbar {
+	background-color: #e3f2fd;
+}
+
+.content-wrapper {	
+	background-image: linear-gradient(to right, rgba(251,255,230,0), rgba(172,178,239,1));
 }
 
 
